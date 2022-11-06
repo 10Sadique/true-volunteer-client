@@ -23,7 +23,7 @@ const navLinks = [
 const Navbar = () => {
     const [navbar, setNavbar] = useState<boolean>(false);
     return (
-        <nav className="sticky top-0 w-full text-gray-700 border-b shadow-sm">
+        <nav className="sticky top-0 w-full text-gray-700 shadow-md bg-white/70 backdrop-blur-md">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8 ">
                 <div>
                     <div className="flex items-center justify-between py-2 md:block">
