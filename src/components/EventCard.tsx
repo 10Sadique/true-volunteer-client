@@ -23,7 +23,7 @@ const EventCard: FC<IEventCard> = ({ event }) => {
                 <h2 className="text-xl font-bold text-gray-700">{title}</h2>
                 <div className="mb-2" />
                 <Link to={`/events/${_id}`}>
-                    <button className="w-full px-5 py-2 text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600">
+                    <button className="w-full px-5 py-2 font-semibold text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600">
                         Enroll for Event
                     </button>
                 </Link>

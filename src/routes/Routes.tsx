@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Events from '../components/Events';
 import Main from '../layout/Main';
+import EventPage from '../pages/EventPage';
 import Home from '../pages/Home';
 
 export const router = createBrowserRouter([
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/home', element: <Home /> },
             { path: '/events', element: <Events /> },
+            { path: '/events/:id', element: <EventPage /> },
         ],
     },
 ]);
