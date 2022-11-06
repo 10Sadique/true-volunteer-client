@@ -2,8 +2,6 @@ import { FC, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { IEvent } from '../components/Events';
 
-type IEventPage = {};
-
 const EventPage = () => {
     const location = useLocation();
     const id = location.pathname.split('/').at(-1);
