@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { IEvent } from '../components/Events';
 
@@ -14,8 +14,6 @@ const EventPage = () => {
                 setEvent(data);
             });
     }, [id]);
-
-    console.log(event);
 
     return (
         <div>
