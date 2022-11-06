@@ -13,20 +13,40 @@ const navLinks = [
         >
             Home
         </NavLink>
-        <NavLink to={`/events`}>Events</NavLink>
-        <NavLink to={`/activities`}>Activities</NavLink>
-        <NavLink to={`/signin`}>Sing In</NavLink>
-        <NavLink to={`/signup`}>Sign Up</NavLink>
+        <NavLink
+            className={({ isActive }) => (isActive ? 'text-cyan-600' : '')}
+            to={`/events`}
+        >
+            Events
+        </NavLink>
+        <NavLink
+            className={({ isActive }) => (isActive ? 'text-cyan-600' : '')}
+            to={`/activities`}
+        >
+            Activities
+        </NavLink>
+        <NavLink
+            className={({ isActive }) => (isActive ? 'text-cyan-600' : '')}
+            to={`/signin`}
+        >
+            Sing In
+        </NavLink>
+        <NavLink
+            className={({ isActive }) => (isActive ? 'text-cyan-600' : '')}
+            to={`/signup`}
+        >
+            Sign Up
+        </NavLink>
     </div>,
 ];
 
 const Navbar = () => {
     const [navbar, setNavbar] = useState<boolean>(false);
     return (
-        <nav className="sticky top-0 w-full text-gray-700 shadow-md bg-white/70 backdrop-blur-md">
+        <nav className="sticky top-0 z-50 w-full text-gray-700 shadow-md bg-white/70 backdrop-blur-md">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8 ">
                 <div>
-                    <div className="flex items-center justify-between py-2 md:block">
+                    <div className="flex items-center justify-between py-3 md:block">
                         <NavLink to={`/`} className="text-3xl font-bold">
                             <span className="text-cyan-600">True</span>
                             <span className="text-gray-700">Volunteers</span>

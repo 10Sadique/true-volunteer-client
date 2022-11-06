@@ -14,7 +14,7 @@ const Hero = () => {
                         live.
                     </p>
                     <div className="mb-8" />
-                    <button className="px-5 py-2 text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600 ">
+                    <button className="px-5 py-2 font-medium text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600">
                         Join as a Volunteer
                     </button>
                 </div>
