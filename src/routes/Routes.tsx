@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import Events from '../components/Events';
 import Main from '../layout/Main';
 import Activities from '../pages/Activities';
+import AdminPage from '../pages/AdminPage';
+import AdminSignIn from '../pages/AdminSingIn';
 import EventPage from '../pages/EventPage';
 import Home from '../pages/Home';
 import SignIn from '../pages/SignIn';
@@ -36,6 +38,15 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
+            // { path: '/admin_signin', element: <AdminSignIn /> },
+            // {
+            //     path: '/admin',
+            //     element: (
+            //         <PrivateRoute>
+            //             <AdminPage />
+            //         </PrivateRoute>
+            //     ),
+            // },
         ],
     },
 ]);

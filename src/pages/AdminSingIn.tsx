@@ -1,14 +1,14 @@
 import { FormEvent, useContext } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import signin from '../assets/signin.svg';
 import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 
-const SignIn = () => {
+const AdminSignIn = () => {
     const { signIn, setLoading } = useContext(AuthContext) as IAuthContext;
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const to = location.state?.from?.pathname || '/';
+    // const location = useLocation();
+    const to = '/admin';
 
     const handleSubmit = (e: FormEvent): void => {
         e.preventDefault();
@@ -27,8 +27,8 @@ const SignIn = () => {
                 const user = result.user;
                 console.log(user);
                 console.log('Signed In');
-                navigate(to, { replace: true });
                 resetForm.reset();
+                navigate(to, { replace: true });
             })
             .catch((err) => {
                 console.error(err);
@@ -46,7 +46,7 @@ const SignIn = () => {
                 </div>
                 <div className="w-full">
                     <h1 className="text-2xl font-bold text-center text-cyan-600">
-                        Sign In
+                        Admin Sign In
                     </h1>
                     <div className="mb-10" />
                     <div className="mx-10">
@@ -55,7 +55,7 @@ const SignIn = () => {
                             className="flex flex-col gap-5 p-5 font-semibold text-gray-700 rounded-lg shadow-md bg-gray-200/70"
                         >
                             <div>
-                                <label htmlFor="email">Email:</label>
+                                <label htmlFor="email">Admin Email:</label>
                                 <div className="mb-1" />
                                 <input
                                     id="email"
@@ -67,7 +67,9 @@ const SignIn = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="password">Password:</label>
+                                <label htmlFor="password">
+                                    Admin Password:
+                                </label>
                                 <div className="mb-1" />
                                 <input
                                     id="password"
@@ -78,23 +80,13 @@ const SignIn = () => {
                                     required
                                 />
                             </div>
-                            <p>
-                                Don't have an Account?{' '}
-                                <Link className="text-cyan-600" to={`/signup`}>
-                                    Sign Up.
-                                </Link>
-                            </p>
                             <button
                                 className="px-5 py-2 text-white rounded-md shadow-sm bg-cyan-600 shadow-cyan-600"
                                 type="submit"
                             >
-                                Sign In
+                                Admin Sign In
                             </button>
                         </form>
-                        <div className="mb-5" />
-                        {/* <p className="font-semibold text-center underline text-cyan-600">
-                            <Link to={`/admin_signin`}>Admin Sing In?</Link>
-                        </p> */}
                     </div>
                 </div>
             </div>
@@ -102,4 +94,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default AdminSignIn;
