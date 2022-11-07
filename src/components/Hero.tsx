@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import hero from '../assets/hero.png';
 
 const Hero = () => {
@@ -14,9 +15,11 @@ const Hero = () => {
                         live.
                     </p>
                     <div className="mb-8" />
-                    <button className="px-5 py-2 font-medium text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600">
-                        Join as a Volunteer
-                    </button>
+                    <Link to={`/events`}>
+                        <button className="px-5 py-2 font-medium text-white rounded-lg shadow-md bg-cyan-600 shadow-cyan-600">
+                            Join as a Volunteer
+                        </button>
+                    </Link>
                 </div>
                 <div className="flex items-center justify-center w-full overflow-hidden md:basis-2/5">
                     <img className="rounded-full md:w-4/5" src={hero} alt="" />
