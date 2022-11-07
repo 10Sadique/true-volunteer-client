@@ -1,19 +1,52 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { FormEvent, useContext } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { IEvent } from '../components/Events';
+import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 
 const EventPage = () => {
-    const location = useLocation();
-    const id = location.pathname.split('/').at(-1);
-    const [event, setEvent] = useState<IEvent>();
+    const event = useLoaderData() as IEvent;
+    const { user } = useContext(AuthContext) as IAuthContext;
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/events/${id}`)
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const data = e.target as typeof e.target & {
+            name: { value: string };
+            email: { value: string };
+            phone: { value: string };
+            date: { value: string };
+        };
+
+        const name = data.name.value;
+        const email = data.email.value;
+        const phone = data.phone.value;
+        const date = data.date.value;
+
+        const userData = {
+            name,
+            email,
+            phone,
+            date,
+            eventId: event._id,
+        };
+
+        fetch(`http://localhost:5000/activities`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        })
             .then((res) => res.json())
             .then((data) => {
-                setEvent(data);
+                console.log(data);
+                if (data.acknowledged) {
+                    navigate('/activities');
+                }
+                form.reset();
             });
-    }, [id]);
+    };
 
     return (
         <div>
@@ -29,7 +62,10 @@ const EventPage = () => {
                         <img src={event?.img} alt="" />
                     </div>
                 </div>
-                <form className="p-5 text-gray-700 rounded-lg shadow-md bg-gray-200/60 h-max basis-1/2">
+                <form
+                    onSubmit={handleSubmit}
+                    className="p-5 text-gray-700 rounded-lg shadow-md bg-gray-200/60 h-max basis-1/2"
+                >
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                         <div className="space-y-2">
                             <label htmlFor="name" className="font-semibold ">
@@ -41,6 +77,9 @@ const EventPage = () => {
                                 name="name"
                                 placeholder="Name"
                                 className="w-full px-5 py-2 rounded-md shadow-sm placeholder:text-gray-700"
+                                defaultValue={
+                                    user?.displayName ? user.displayName : ''
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -53,17 +92,19 @@ const EventPage = () => {
                                 name="email"
                                 placeholder="Email"
                                 className="w-full px-5 py-2 rounded-md shadow-sm placeholder:text-gray-700"
+                                defaultValue={user?.email ? user.email : ''}
+                                readOnly
                             />
                         </div>
                         <div className="space-y-2">
                             <label htmlFor="phone" className="font-semibold ">
-                                Phone:
+                                Phone No:
                             </label>
                             <input
                                 id="phone"
                                 type="text"
                                 name="phone"
-                                placeholder="Phone"
+                                placeholder="Enter Phone No."
                                 className="w-full px-5 py-2 rounded-md shadow-sm placeholder:text-gray-700"
                             />
                         </div>
