@@ -10,7 +10,6 @@ import {
     User,
     UserCredential,
 } from 'firebase/auth';
-import { sign } from 'crypto';
 
 type IAuthProvider = {
     children: ReactNode;
@@ -23,6 +22,7 @@ export interface IAuthContext {
     signUp: (email: string, password: string) => Promise<UserCredential>;
     updateUser: (name: string, image: string) => Promise<void> | undefined;
     logOut: () => Promise<void>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const auth = getAuth(app);
@@ -32,6 +32,7 @@ export const AuthContext = createContext<IAuthContext | null>(null);
 const AuthProvider: FC<IAuthProvider> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    console.log(user);
 
     const signIn = (email: string, password: string) => {
         setLoading(true);
@@ -45,8 +46,11 @@ const AuthProvider: FC<IAuthProvider> = ({ children }) => {
 
     const updateUser = (name: string, image: string) => {
         setLoading(true);
-        if (user !== null)
-            return updateProfile(user, { displayName: name, photoURL: image });
+        if (auth.currentUser !== null)
+            return updateProfile(auth.currentUser, {
+                displayName: name,
+                photoURL: image,
+            });
     };
 
     const logOut = () => {
@@ -72,6 +76,7 @@ const AuthProvider: FC<IAuthProvider> = ({ children }) => {
         signUp,
         updateUser,
         logOut,
+        setLoading,
     };
 
     return (

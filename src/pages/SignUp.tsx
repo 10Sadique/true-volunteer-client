@@ -1,8 +1,17 @@
 import signup from '../assets/signup.svg';
-import { Link } from 'react-router-dom';
-import { FormEvent } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FormEvent, useContext } from 'react';
+import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 
 const SignUp = () => {
+    const { signUp, updateUser, setLoading } = useContext(
+        AuthContext
+    ) as IAuthContext;
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const to = location.state?.from?.pathname || '/';
+
     const handleSubmit = (e: FormEvent): void => {
         e.preventDefault();
         const resetForm = e.target as HTMLFormElement;
@@ -19,8 +28,21 @@ const SignUp = () => {
         const image = form.image.value;
         const password = form.password.value;
 
-        console.log(name, email, image, password);
-        resetForm.reset();
+        signUp(email, password)
+            .then((result) => {
+                const user = result.user;
+                updateUser(name, image)?.then(() => {
+                    console.log('User Updated');
+                });
+
+                console.log(user);
+                resetForm.reset();
+                navigate(to, { replace: true });
+            })
+            .catch((err) => console.error(err))
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (

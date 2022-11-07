@@ -1,8 +1,15 @@
-import { FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { FormEvent, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signin from '../assets/signin.svg';
+import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 
 const SignIn = () => {
+    const { signIn, setLoading } = useContext(AuthContext) as IAuthContext;
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const to = location.state?.from?.pathname || '/';
+
     const handleSubmit = (e: FormEvent): void => {
         e.preventDefault();
         const resetForm = e.target as HTMLFormElement;
@@ -12,8 +19,22 @@ const SignIn = () => {
             password: { value: string };
         };
 
-        console.log(form.email.value, form.password.value);
-        resetForm.reset();
+        const email = form.email.value;
+        const password = form.password.value;
+
+        signIn(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                resetForm.reset();
+                navigate(to, { replace: true });
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
