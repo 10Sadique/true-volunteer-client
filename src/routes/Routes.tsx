@@ -2,8 +2,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Events from '../components/Events';
 import Main from '../layout/Main';
 import Activities from '../pages/Activities';
-import AdminPage from '../pages/AdminPage';
-import AdminSignIn from '../pages/AdminSingIn';
 import EventPage from '../pages/EventPage';
 import Home from '../pages/Home';
 import SignIn from '../pages/SignIn';
@@ -17,7 +15,7 @@ export const router = createBrowserRouter([
         children: [
             { path: '/', element: <Home /> },
             { path: '/home', element: <Home /> },
-            { path: '/events', element: <Events /> },
+            { path: '/events', element: <Events limit={Infinity} /> },
             {
                 path: '/events/:id',
                 element: (
@@ -26,7 +24,9 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
                 loader: ({ params }) =>
-                    fetch(`http://localhost:5000/events/${params.id}`),
+                    fetch(
+                        `https://true-volunteer-server.vercel.app/events/${params.id}`
+                    ),
             },
             { path: '/signin', element: <SignIn /> },
             { path: '/signup', element: <SignUp /> },

@@ -12,7 +12,7 @@ const SingleActivity: FC<ISingleActivity> = ({ event, handleRemove }) => {
     const { eventId, date, _id } = event;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/events/${eventId}`)
+        fetch(`https://true-volunteer-server.vercel.app/events/${eventId}`)
             .then((res) => res.json())
             .then((data) => {
                 setActivity(data);

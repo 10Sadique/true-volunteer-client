@@ -45,10 +45,10 @@ const Navbar = () => {
                         My Activities
                     </NavLink>
                     <button onClick={handleSignOut}>Sign Out</button>
-                    <div className="h-10 w-10 rounded-full overflow-hidden bg-cyan-200">
+                    <div className="w-10 h-10 overflow-hidden rounded-full bg-cyan-200">
                         {user?.photoURL && (
                             <img
-                                className="w-full h-full object-cover"
+                                className="object-cover w-full h-full"
                                 src={user.photoURL}
                                 alt=""
                             />

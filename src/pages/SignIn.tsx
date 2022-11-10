@@ -1,10 +1,13 @@
 import { FormEvent, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signin from '../assets/signin.svg';
+import Spinner from '../components/Spinner';
 import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 
 const SignIn = () => {
-    const { signIn, setLoading } = useContext(AuthContext) as IAuthContext;
+    const { signIn, setLoading, loading } = useContext(
+        AuthContext
+    ) as IAuthContext;
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -37,6 +40,14 @@ const SignIn = () => {
                 setLoading(false);
             });
     };
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center my-56">
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
         <div>

@@ -13,7 +13,7 @@ const EventCard: FC<IEventCard> = ({ event }) => {
         <div className="p-3 bg-gray-200 border rounded-lg shadow-lg">
             <div className="overflow-hidden rounded-lg shadow-md">
                 <img
-                    className="object-cover w-full h-full scale-110"
+                    className="object-cover w-full h-full transition-all duration-300 scale-110 cursor-pointer hover:scale-125 ease"
                     src={img}
                     alt=""
                 />

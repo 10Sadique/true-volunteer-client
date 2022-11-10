@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext, IAuthContext } from '../contexts/AuthProvider';
 import EventCard from './EventCard';
+import Spinner from './Spinner';
 
 export interface IEvent {
     _id: string;
@@ -8,18 +10,31 @@ export interface IEvent {
     img: string;
 }
 
-const Events = () => {
+type IEventProps = {
+    limit: number;
+};
+
+const Events = ({ limit }: IEventProps): JSX.Element => {
     const [events, setEvents] = useState<IEvent[] | null>(null);
+    const { loading } = useContext(AuthContext) as IAuthContext;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/events`)
+        fetch(`https://true-volunteer-server.vercel.app/events`)
             .then((res) => res.json())
             .then((data) => {
-                setEvents(data);
+                setEvents(data.slice(0, limit));
             });
-    }, []);
+    }, [limit]);
 
     // console.log(events);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center my-56">
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
         <div>

@@ -31,7 +31,7 @@ const EventPage = () => {
             eventId: event._id,
         };
 
-        fetch(`http://localhost:5000/activities`, {
+        fetch(`https://true-volunteer-server.vercel.app/activities`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

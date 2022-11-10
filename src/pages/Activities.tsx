@@ -18,7 +18,9 @@ const Activities = () => {
     // const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/activities?email=${user?.email}`)
+        fetch(
+            `https://true-volunteer-server.vercel.app/activities?email=${user?.email}`
+        )
             .then((res) => res.json())
             .then((data) => {
                 setEvents(data);
@@ -30,7 +32,7 @@ const Activities = () => {
             'Are you sure, you want to remove this event?'
         );
         if (proceed) {
-            fetch(`http://localhost:5000/activities/${id}`, {
+            fetch(`https://true-volunteer-server.vercel.app/activities/${id}`, {
                 method: 'DELETE',
             })
                 .then((res) => res.json())
